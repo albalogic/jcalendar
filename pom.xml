@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>jcalendar</artifactId>
+    <groupId>fr.albalogic</groupId>
+    <version>1.4.1</version>
+    <packaging>jar</packaging>
+    <name>jcalendar</name>
+
+    <properties>
+        <revision>1.4.1</revision>
+        <project.build.sourceEncoing>UTF-8</project.build.sourceEncoing>
+    </properties>
+
+    <organization>
+        <name>Albalogic</name>
+        <url>https://www.albalogic.fr</url>
+    </organization>
+
+    <issueManagement>
+        <system>RedMine</system>
+        <url>https://github.com/albalogic/jcalendar</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:albalogic/jcalendar.git</connection>
+        <url>https://github.com:albalogic/jcalendar</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>nexus snapshots</name>
+            <url>https://nexus.albalogic.fr/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus</id>
+            <name>nexus releases</name>
+            <url>https://nexus.albalogic.fr/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                    <encoding>UTF-8</encoding>
+                    <showDeprecation>false</showDeprecation>
+                </configuration>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <archive>
+                        <index/>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Git-Tag>${revision}</Git-Tag>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <includeEmptyDirs>false</includeEmptyDirs>
+                    <overwrite>false</overwrite>
+                </configuration>
+            </plugin>
+            <!-- check vulnerabilities with : mvn dependency-check:check -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>8.2.1</version>
+                <configuration>
+                    <cveValidForHours>12</cveValidForHours>
+                    <failBuildOnCVSS>9.9</failBuildOnCVSS>
+                    <skipProvidedScope>true</skipProvidedScope>
+                    <skipTestScope>true</skipTestScope>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                    <suppressionFiles>
+                        <!--suppressionFile>project-suppression.xml</suppressionFile-->
+                    </suppressionFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+    </dependencies>
+
+</project>
+
